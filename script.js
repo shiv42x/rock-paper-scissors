@@ -1,5 +1,4 @@
-let moves = ["rock", "paper", "scissors"]
-
+let moves = ["rock", "paper", "scissors"];
 function computerPlay() {
     let hand = Math.floor(Math.random() * 3);
     return moves[hand];
@@ -36,10 +35,28 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-
-for (let i = 0; i <= 5; i++) { 
-    playerSelection = window.prompt("Choose:", "");
-    computerSelection = computerPlay();
-    console.log("You chose " + playerSelection + ", Computer chose " + computerSelection);
-    console.log(playRound(playerSelection, computerSelection));
+function displayResults(result) { 
+    const result_box = document.getElementById("result-box");
+    const res = document.createElement('p');
+    res.textContent = result; 
+    result_box.replaceChild(res, result_box.childNodes[2]);
 }
+
+function displayComputerChoice(computerSelection) { 
+    const computer_box = document.getElementById("computer-box");
+    const res = document.createElement('p');
+    res.textContent = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1); 
+    computer_box.replaceChild(res, computer_box.childNodes[4]);
+}
+
+const choices = document.querySelectorAll('button');
+choices.forEach((button) => {
+    button.addEventListener('click', () => {
+        playerSelection = button.id;
+        computerSelection = computerPlay();
+        let result = playRound(playerSelection, computerSelection);
+        displayComputerChoice(computerSelection); 
+        displayResults(result); 
+    })
+})
+
