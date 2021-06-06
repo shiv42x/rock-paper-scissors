@@ -14,14 +14,28 @@ function computerPlay() {
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection == computerSelection) {
-        return "It's a draw!"
+        return "It's a draw!";
     }
     if (winList.includes(playerSelection + computerSelection)) {
-        pScore++; 
-        return "Player wins! " + playerSelection + " beats " + computerSelection 
+        pScore++;
+        if (pScore == 5) { 
+            pScore = 0;
+            cScore = 0;
+            return "You won 5 times! Resetting..."; 
+        }
+        else {
+            return "Player wins! " + playerSelection + " beats " + computerSelection;
+        }
     }
     cScore++;
-    return "Computer wins! " + computerSelection + " beats " + playerSelection
+    if (cScore == 5) { 
+        pScore = 0;
+        cScore = 0;
+        return "Computer won 5 times! Resetting..."
+    }
+    else {
+        return "Computer wins! " + computerSelection + " beats " + playerSelection;
+    }
 }
 
 function displayResults(result) { 
@@ -35,14 +49,14 @@ function displayResults(result) {
         score.textContent = pScore.toString() + " : " + cScore.toString();
         score_box.appendChild(score);
     }   */
+
     const res = document.createElement('p');
     res.textContent = result;
     result_box.replaceChild(res, result_box.childNodes[2]);
 
-    const score = document.createElement('p')
+    const score = document.createElement('p');
     score.textContent = pScore.toString() + " : " + cScore.toString();
     result_box.replaceChild(score, result_box.childNodes[4]);
-
 }
 
 function displayComputerChoice(computerSelection) { 
