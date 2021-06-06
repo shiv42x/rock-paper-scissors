@@ -1,55 +1,56 @@
-let moves = ["rock", "paper", "scissors"];
+let moves = ["Rock", "Paper", "Scissors"];
+let winList = ["RockScissors", "ScissorsPaper", "PaperRock"]
+const computer_box = document.getElementById("computer");
+const result_box = document.getElementById("result");
+// const score_box = document.getElementById("scores");
+const choices = document.querySelectorAll('button');
+let pScore = 0;
+let cScore = 0; 
+
 function computerPlay() {
     let hand = Math.floor(Math.random() * 3);
     return moves[hand];
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
     if (playerSelection == computerSelection) {
         return "It's a draw!"
     }
-    if (playerSelection == "rock") { 
-        if (computerSelection == "scissors") { 
-            return "You Win! Rock beats Scissors"
-        }
-        if (computerSelection == "paper") { 
-            return "You Lose! Paper beats Rock"
-        }
+    if (winList.includes(playerSelection + computerSelection)) {
+        pScore++; 
+        return "Player wins! " + playerSelection + " beats " + computerSelection 
     }
-    if (playerSelection == "paper") { 
-        if (computerSelection == "rock") { 
-            return "You Win! Paper beats Rock"
-        }
-        if (computerSelection == "scissors") { 
-            return "You Lose! Scissors beats Paper"
-        }
-    }
-    if (playerSelection == "scissors") { 
-        if (computerSelection == "paper") { 
-            return "You Win! Scissors beats Paper"
-        }
-        if (computerSelection == "rock") { 
-            return "You Lose! Rock beats Scissors"
-        }
-    }
+    cScore++;
+    return "Computer wins! " + computerSelection + " beats " + playerSelection
 }
 
 function displayResults(result) { 
-    const result_box = document.getElementById("result-box");
+    /* // Alternative to replaceChild
+    if (document.getElementById('score')) {
+        document.getElementById('score').innerText = pScore.toString() + " : " + cScore.toString();
+    }
+    else { 
+        const score = document.createElement('score');
+        score.setAttribute("id", "score");
+        score.textContent = pScore.toString() + " : " + cScore.toString();
+        score_box.appendChild(score);
+    }   */
     const res = document.createElement('p');
-    res.textContent = result; 
+    res.textContent = result;
     result_box.replaceChild(res, result_box.childNodes[2]);
+
+    const score = document.createElement('p')
+    score.textContent = pScore.toString() + " : " + cScore.toString();
+    result_box.replaceChild(score, result_box.childNodes[4]);
+
 }
 
 function displayComputerChoice(computerSelection) { 
-    const computer_box = document.getElementById("computer-box");
     const res = document.createElement('p');
     res.textContent = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1); 
-    computer_box.replaceChild(res, computer_box.childNodes[4]);
+    computer_box.replaceChild(res, computer_box.childNodes[2]);
 }
 
-const choices = document.querySelectorAll('button');
 choices.forEach((button) => {
     button.addEventListener('click', () => {
         playerSelection = button.id;

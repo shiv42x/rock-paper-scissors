@@ -1,15 +1,16 @@
 body, html {
     display: flex;
     justify-content: center;
-    height: 100%;
+    height: 75%;
 }
-.btns, .computer, .result { 
+#btns, #computer, #result { 
     display: flex; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 40px;
 }
-.result { 
-    padding-bottom: 100px;
+
+#result { 
+    min-width: 323px;
 }
